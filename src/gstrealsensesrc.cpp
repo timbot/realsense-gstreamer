@@ -80,7 +80,7 @@ static GstStaticPadTemplate src_factory = GST_STATIC_PAD_TEMPLATE ("src",
     GST_PAD_SRC,
     GST_PAD_ALWAYS,
     GST_STATIC_CAPS (GST_VIDEO_CAPS_MAKE
-        ("{ RGB, RGBA, BGR, BGRA, GRAY16_LE, GRAY16_BE, YVYU }"))
+        ("{ RGB, RGBA, BGR, BGRA, GRAY16_LE, GRAY16_BE, YVYU, YUY2 }"))
     );
 
 #define gst_realsense_src_parent_class parent_class
@@ -386,8 +386,7 @@ static GstVideoFormat RS_to_Gst_Video_Format(rs2_format fmt)
             return GST_VIDEO_FORMAT_GRAY16_BE;
           }
         case RS2_FORMAT_YUYV:
-          // FIXME Not exact format match
-          return GST_VIDEO_FORMAT_YVYU;
+          return GST_VIDEO_FORMAT_YUY2;
         default:
           return GST_VIDEO_FORMAT_UNKNOWN;
       }
@@ -496,7 +495,7 @@ gst_realsense_src_start (GstBaseSrc * basesrc)
         cfg.enable_stream(RS2_STREAM_GYRO, RS2_FORMAT_MOTION_XYZ32F);
       }
 
-      cfg.enable_stream(RS2_STREAM_COLOR, RS2_FORMAT_RGB8);
+      cfg.enable_stream(RS2_STREAM_COLOR, RS2_FORMAT_YUYV);
       cfg.enable_stream(RS2_STREAM_DEPTH, RS2_FORMAT_Z16);
       // auto profile = src->rs_pipeline->get_active_profile();
       // auto streams = profile.get_streams();     

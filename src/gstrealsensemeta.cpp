@@ -29,7 +29,7 @@
 
 GType gst_realsense_meta_api_get_type (void)
 {
-    static volatile GType type;
+    static GType type;
 
     if (g_once_init_enter (&type)) {
         static const gchar *tags[] = { GST_META_TAG_VIDEO_STR, "sensor", NULL };
