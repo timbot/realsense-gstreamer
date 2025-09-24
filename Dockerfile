@@ -24,7 +24,7 @@ RUN apt-get update && \
 WORKDIR /deps
 
 # Clone required repositories
-RUN git clone --branch v2.56.4 https://github.com/IntelRealSense/librealsense.git
+RUN git clone https://github.com/IntelRealSense/librealsense.git
 
 # Build and install librealsense
 WORKDIR /deps/librealsense
